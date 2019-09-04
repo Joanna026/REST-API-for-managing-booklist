@@ -8,42 +8,95 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 <body>
-<section class="section is-$turquoise">
-    <nav class="level">
+<section class="section">
+    <nav class="level has-background-grey" style="height: 120px">
         <p class="level-item has-text-centered">
-            <a class="link is-info">Strona główna</a>
+            <a class="link is-info has-text-light">Strona główna</a>
+        </p>
+        <p class="level-item has-text-centered is-size-1 has-text-primary" style="font-weight: bold">
+            REST BOOKS
         </p>
         <p class="level-item has-text-centered">
-            <a class="link is-info">Menu</a>
-        </p>
-        <p class="level-item has-text-centered">
-            <img src="https://bulma.io/images/bulma-type.png" alt="" style="height: 30px;">
-        </p>
-        <p class="level-item has-text-centered">
-            <a class="link is-info">Dodaj książkę</a>
-        </p>
-        <p class="level-item has-text-centered">
-            <a class="link is-info">Kontakt</a>
+            <a class="link is-info has-text-light">Kontakt</a>
         </p>
     </nav>
-    <div class="container">
-        <h1 class="title">
-            Spis książek
-        </h1>
+
+    <div class="form has-background-light" style=" height: 220px">
+        <div class="columns" style="margin-left: 10%">
+            <div class="column is-narrow">
+                <div class="field">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" style="width: 400px" type="text" id="title" placeholder="Tytuł">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" style="width: 400px" type="text" id="author" placeholder="Autor">
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input" style="width: 400px" type="text" id="publisher" placeholder="Wydawnictwo">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input" style="width: 400px" type="text" id="isbn" placeholder="ISBN">
+                    </div>
+                </div>
+            </div>
+            <div class="column is-narrow">
+                <div class="field">
+                    <div class="control">
+                        <div class="select is-multiple">
+                            <select multiple size="8" id="type" placeholder="Gatunek" style="height: 180px">
+                                <option value="Programowanie">Programowanie</option>
+                                <option value="Fiction">Beletrystyka</option>
+                                <option value="Nonfiction">Publicystyka</option>
+                                <option value="Science">Literatura popularnonaukowa</option>
+                                <option value="Children">Literatura dziecięca</option>
+                                <option value="Poetry">Poezja i dramat</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-narrow">
+                <div class="control">
+                    <button class="button has-background-primary is-link">Dodaj książkę</button>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <nav class="level has-background-grey-lighter" style="height: 120px">
+        <p class="level-item has-text-centered is-size-2" style="font-weight: bold">
+            Książki
+        </p>
+    </nav>
 
-<container id="book-list">
-    <article class="message is-primary">
-        <div class="message-header">
-            <p data-type = "title"> Tytuł  </p>
-            <button class="button is-primary is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </button>
-        </div>
-        <div class="message-body">  opis </div>
-    </article>
-</container>
+    <div class="columns is-one-quarter is-multiline is-mobile" id="book-list">
+        <article class="message is-primary" style="width: 21%; float: right; margin: 2%">
+            <div class="message-header">
+                <p data-type="title has-text-light"> Tytuł </p>
+                <button class="button is-primary is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="message-body">
+                <div class="columns">
+                    <div class="column is-narrow">
+                        opis
+                    </div>
+                    <div class="column is-flexible">
+                        <button class="button is-outlined is-link delete-button">Usuń</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
