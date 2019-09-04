@@ -3,22 +3,6 @@ $(() => {
     const bookList = $("#book-list");
     const form = $(".form");
 
-
-    const getBook = () => {
-
-        const books = [];
-        $.ajax({
-            "url": "http://localhost:8282/books/",
-            "dataType": "json"
-        }).done(result => {
-            result.forEach(book => {
-                showBook(book);
-            })
-        });
-        addEventToFormBtn();
-    };
-
-
     const showBook = book => {
 
         const newBook = $(`<article  class=\"message is-primary\" style=\"width: 21%;  float: right; margin: 2%\">` +
@@ -34,8 +18,8 @@ $(() => {
             `Autor: ${book.author} <br/> Wydawnictwo: ${book.publisher}<br/>` +
             `Gatunek: ${book.type}<br/> ISBN: ${book.isbn}` +
             `        </div>` +
-            `<div class="column is-flexible">` +
-            `<button class="button is-outlined is-link delete-button" id=\"${book.id}\">Usuń</button>` +
+            `<div class="column is-flexible" style="position: relative">` +
+            `<button class="button is-outlined delete-button" style="position: absolute; right: 0; bottom: 0" id=\"${book.id}\">Usuń</button>` +
             `</div>` +
            `</div>` +
             `    </article>`);
@@ -44,39 +28,10 @@ $(() => {
         $(".message-body").hide();
     };
 
-    const addBook = function () {
-
-        const newBook = form.find('input');
-
-        $.ajax({
-            "url": "http://localhost:8282/books",
-            "data": `{"title": "${newBook.eq(0).val()}",
-            "author": "${newBook.eq(1).val()}",
-            "publisher": "${newBook.eq(2).val()}",
-            "isbn": "${newBook.eq(3).val()}",
-            "type": "${form.find('#type').val()}"
-            }`,
-            "contentType": "application/json",
-            "method": "POST"
-        }).done(result => {
-            console.log("dodano");
-        });
-    };
-
-    const deleteBook = function (id) {
-        const url = "http://localhost:8282/books/" + id;
-        console.log(url);
-        $.ajax({
-            "url": `${url}`,
-            "method": "DELETE"
-            }).done(result => {
-                console.log("usunięto");
-        });
-    };
-
 
     const addEventToFormBtn = function () {
         bookList.on("click", e => {
+            e.preventDefault();
             console.log(e.target);
             if (e.target.tagName === "BUTTON" || e.target.parentElement.tagName === "BUTTON"
                 || e.target.parentElement.parentElement.tagName === "BUTTON" && !e.target.classList.contains("delete-button")) {
@@ -88,8 +43,9 @@ $(() => {
     };
 
     form.on("click", e => {
+        e.preventDefault();
         if (e.target.tagName === "BUTTON") {
-            addBook();
+            ajaxConnect("post", null);
             location.reload();
         }
     });
@@ -99,12 +55,56 @@ $(() => {
         if (e.target.classList.contains("delete-button")) {
             const id = e.target.getAttribute("id");
             console.log(id);
-            deleteBook(id);
+            ajaxConnect("delete", id);
             location.reload();
         }
     });
 
 
-    getBook();
+    const ajaxConnect = function(method, id) {
+
+        if (method === "get") {
+            const books = [];
+            $.ajax({
+                "url": "http://localhost:8282/books/",
+                "dataType": "json"
+            }).done(result => {
+                result.forEach(book => {
+                    showBook(book);
+                })
+            });
+            addEventToFormBtn();
+
+        } else if (method === "post") {
+            const newBook = form.find('input');
+
+            $.ajax({
+                "url": "http://localhost:8282/books",
+                "data": `{"title": "${newBook.eq(0).val()}",
+            "author": "${newBook.eq(1).val()}",
+            "publisher": "${newBook.eq(2).val()}",
+            "isbn": "${newBook.eq(3).val()}",
+            "type": "${form.find('#type').val()}"
+            }`,
+                "contentType": "application/json",
+                "method": "POST"
+            }).done(result => {
+                console.log("dodano");
+            });
+
+        } else if (method === "delete") {
+            const url = "http://localhost:8282/books/" + id;
+            console.log(url);
+            $.ajax({
+                "url": `${url}`,
+                "method": "DELETE"
+            }).done(result => {
+                console.log("usunięto");
+            });
+        }
+
+    };
+
+    ajaxConnect("get", null);
 
 });

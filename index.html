@@ -10,19 +10,14 @@
 <body>
 <section class="section">
     <nav class="level has-background-grey" style="height: 120px">
-        <p class="level-item has-text-centered">
-            <a class="link is-info has-text-light">Strona główna</a>
+        <p class="level-left has-text-centered" style="margin: 5%">
+            <img src="logo.png" alt="" style="height: 130px;">
         </p>
-        <p class="level-item has-text-centered is-size-1 has-text-primary" style="font-weight: bold">
-            REST BOOKS
-        </p>
-        <p class="level-item has-text-centered">
-            <a class="link is-info has-text-light">Kontakt</a>
-        </p>
+
     </nav>
 
-    <div class="form has-background-light" style=" height: 220px">
-        <div class="columns" style="margin-left: 10%">
+    <div class="form has-background-light" style=" height: 220px; position: relative">
+        <div class="columns" style="margin-left: 4.5%">
             <div class="column is-narrow">
                 <div class="field">
                     <div class="field">
@@ -53,19 +48,21 @@
                         <div class="select is-multiple">
                             <select multiple size="8" id="type" placeholder="Gatunek" style="height: 180px">
                                 <option value="Programowanie">Programowanie</option>
-                                <option value="Fiction">Beletrystyka</option>
-                                <option value="Nonfiction">Publicystyka</option>
-                                <option value="Science">Literatura popularnonaukowa</option>
-                                <option value="Children">Literatura dziecięca</option>
-                                <option value="Poetry">Poezja i dramat</option>
+                                <option value="Beletrystyka">Beletrystyka</option>
+                                <option value="Publicystyka">Publicystyka</option>
+                                <option value="Literatura popularnonaukowa">Literatura popularnonaukowa</option>
+                                <option value="Literatura dziecięca">Literatura dziecięca</option>
+                                <option value="Poezja i dramat">Poezja i dramat</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="column is-narrow">
-                <div class="control">
-                    <button class="button has-background-primary is-link">Dodaj książkę</button>
+                <div class="control" style="position: absolute;bottom: 15%">
+                    <button class="button has-background-primary is-link">Dodaj
+                        książkę
+                    </button>
                 </div>
             </div>
         </div>
@@ -90,8 +87,10 @@
                     <div class="column is-narrow">
                         opis
                     </div>
-                    <div class="column is-flexible">
-                        <button class="button is-outlined is-link delete-button">Usuń</button>
+                    <div class="column is-flexible" style="position: relative">
+                        <button class="button is-outlined delete-button"
+                                style="position: absolute; right: 0; bottom: 0">Usuń
+                        </button>
                     </div>
                 </div>
             </div>
