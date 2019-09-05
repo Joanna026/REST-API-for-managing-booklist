@@ -45,40 +45,8 @@ $(() => {
     form.on("click", e => {
         e.preventDefault();
         if (e.target.tagName === "BUTTON") {
-            ajaxConnect("post", null);
-            location.reload();
-        }
-    });
-
-
-    bookList.on("click", e => {
-        if (e.target.classList.contains("delete-button")) {
-            const id = e.target.getAttribute("id");
-            console.log(id);
-            ajaxConnect("delete", id);
-            location.reload();
-        }
-    });
-
-
-    const ajaxConnect = function(method, id) {
-
-        if (method === "get") {
-            const books = [];
-            $.ajax({
-                "url": "http://localhost:8282/books/",
-                "dataType": "json"
-            }).done(result => {
-                result.forEach(book => {
-                    showBook(book);
-                })
-            });
-            addEventToFormBtn();
-
-        } else if (method === "post") {
             const newBook = form.find('input');
-
-            $.ajax({
+            const ajaxPostSettings = {
                 "url": "http://localhost:8282/books",
                 "data": `{"title": "${newBook.eq(0).val()}",
             "author": "${newBook.eq(1).val()}",
@@ -88,23 +56,43 @@ $(() => {
             }`,
                 "contentType": "application/json",
                 "method": "POST"
-            }).done(result => {
-                console.log("dodano");
-            });
+            };
+            ajaxConnect(ajaxPostSettings);
+            location.reload();
+        }
+    });
 
-        } else if (method === "delete") {
+
+    bookList.on("click", e => {
+        e.preventDefault();
+        if (e.target.classList.contains("delete-button")) {
+            const id = e.target.getAttribute("id");
             const url = "http://localhost:8282/books/" + id;
-            console.log(url);
-            $.ajax({
+            const ajaxDeleteSettings = {
                 "url": `${url}`,
                 "method": "DELETE"
-            }).done(result => {
-                console.log("usunięto");
-            });
+            };
+            ajaxConnect(ajaxDeleteSettings);
+            location.reload();
         }
+    });
 
+
+    const ajaxConnect = function(settings) {
+            $.ajax(settings).done(result => {
+                result.forEach(book => {
+                    showBook(book);
+                });
+            });
     };
 
-    ajaxConnect("get", null);
+    const ajaxGetSettings = {
+        "url": "http://localhost:8282/books/",
+        "dataType": "json"
+    };
+
+
+  ajaxConnect(ajaxGetSettings);
+    addEventToFormBtn();
 
 });
