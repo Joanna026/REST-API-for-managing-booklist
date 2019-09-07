@@ -1,7 +1,7 @@
 $(() => {
 
     const bookList = $("#book-list");
-    const form = $(".form");
+    const form = $("#form");
 
     const showBook = book => {
 
@@ -44,18 +44,19 @@ $(() => {
 
     form.on("click", e => {
         e.preventDefault();
+        console.log("guzik");
         if (e.target.tagName === "BUTTON") {
             const newBook = form.find('input');
             const ajaxPostSettings = {
-                "url": "http://localhost:8282/books",
-                "data": `{"title": "${newBook.eq(0).val()}",
+                url: '/books/add',
+                data: `{"title": "${newBook.eq(0).val()}",
             "author": "${newBook.eq(1).val()}",
             "publisher": "${newBook.eq(2).val()}",
             "isbn": "${newBook.eq(3).val()}",
             "type": "${form.find('#type').val()}"
             }`,
-                "contentType": "application/json",
-                "method": "POST"
+                contentType: "application/json",
+                method: "POST"
             };
             ajaxConnect(ajaxPostSettings);
             location.reload();
@@ -67,10 +68,10 @@ $(() => {
         e.preventDefault();
         if (e.target.classList.contains("delete-button")) {
             const id = e.target.getAttribute("id");
-            const url = "http://localhost:8282/books/" + id;
+            const url = "/books/delete/" + id;
             const ajaxDeleteSettings = {
-                "url": `${url}`,
-                "method": "DELETE"
+                url: `${url}`,
+                method: "DELETE"
             };
             ajaxConnect(ajaxDeleteSettings);
             location.reload();
@@ -87,8 +88,8 @@ $(() => {
     };
 
     const ajaxGetSettings = {
-        "url": "http://localhost:8282/books/",
-        "dataType": "json"
+        url: "/books",
+        dataType: "json"
     };
 
 
